@@ -1284,15 +1284,15 @@ FileManager.setCurrentFile = function(a) {
 			process: function(a) {
 				{
 					var b = this;
-					$.map(a.find("img[ng-src]"), function(a) {
-						var c = decodeURIComponent($(a).attr("ng-src")) || "",
+					$.map(a.find("img[src]"), function(a) {
+						var c = decodeURIComponent($(a).attr("src")) || "",
 							d = e.find('img[longdesc="' + c + '"]');
 						return d.length ? $(a).replaceWith(d.first().attr("title", $.attr(a, "title")).attr("alt", $.attr(a, "alt")).clone()) : /^http/.test(c) ? b.convert_to_base64(c, !0) : Vine.trigger("ERROR_INSERT_IMAGE", c), c
 					})
 				}
 			},
 			check_missing_images: function() {
-				return $preview.find("img[ng-src]").length
+				return $preview.find("img[src]").length
 			},
 			restore_images: function() {
 				var a = Session.load_current_images();

@@ -35,6 +35,8 @@
 			<div class='preview-buttons'>
 				<button class="btn btn-success action-create-file" title='新建文档' vine-click='CREATE_FILE'> <i class="icon-doc"></i>
 				</button>
+				<button class="btn btn-success" title='预览文档' vine-click='PREVIEW_DOCUMENT:1'> <i class="icon-desktop"></i>
+				</button>
 			</div>
 		</div>
 
@@ -416,67 +418,6 @@
 </div>
 </div>
 
-<div class="modal modal-insert-image" role="dialog">
-<div class="modal-dialog">
-	<div class="modal-content">
-
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-			<h3 class="modal-title">插入图片</h3>
-		</div>
-		<div class="modal-body">
-			<p>请填写图片URL：</p>
-			<div class="input-group">
-				<span class="input-group-addon">
-					<i class="icon-picture"></i>
-				</span>
-				<input
-						id="input-insert-image" type="text" class="col-lg-5 form-control"
-						placeholder='http://example.com/image.jpg'></input>
-		</div>
-		<div class='help-block'> <b>注意：</b>
-			<span>马克支持从剪切板直接复制图片，截屏粘贴试试。</span>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-default import-local-image"
-					>
-			<input type="file" accept="image/*" id='uploader' name="files[]" multiple="" onchange="" style="position:absolute; top:0; right:0; opacity:0; filter: alpha(opacity=0); font-size:23px; direction: ltr; cursor: pointer;">
-			<i class="icon-hdd"></i>
-			插入本地图片...
-		</a>
-		<a href="#" class="btn btn-default"
-					data-dismiss="modal">取消</a>
-		<a href="#"
-					class="btn btn-primary action-insert-image" data-dismiss="modal">确定</a>
-	</div>
-</div>
-</div>
-</div>
-
-<div class="modal modal-save-error">
-<div class="modal-dialog slim">
-<div class="modal-content">
-
-	<div class="modal-header" style='color:#B90B0B;'>
-		<h3 class="modal-title">同步文件失败</h3>
-	</div>
-	<div class="modal-body">
-		<p> <b>错误码：</b>
-			<span class='error-code'></span>
-		</p>
-		<blockquote>
-			<pre  class='error-message'></pre>
-		</blockquote>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-primary action-app-reset"
-					data-dismiss="modal">确定</a>
-	</div>
-</div>
-</div>
-</div>
 
 <div class="modal modal-help" role="dialog" tabindex='-1'>
 <div class="modal-dialog">
