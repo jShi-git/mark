@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>马克 - Markdown编辑器</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="马克 - Markdown编辑器">
+	<meta name="author" content="stuart.shi">
+
+	<script src="/app/init.js"></script>
+	<link href="/app/font.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="/css/app.css?">
+
+	<!-- For IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+	<div id="main" class="bye">
+		<div id="wmd-input" class="ui-layout-center"></div>
+		<div class="ui-layout-east preview-container"></div>
+		<div class="ui-layout-south preview-container"></div>
+		<div id="wmd-button-bar" class="hide"></div>
+	</div>
+
+	<div id='images_area' style='display:none'></div>
+	<input id='notebooks-hint'type="text" class="span3" style="margin: 0 auto;"  data-items="100"  date-minlength="0">
+
+	<div id="app_wrap" class="container-fluid">
+		<div class="extension-preview-buttons">
+			<div class='preview-buttons'>
+				<button class="btn btn-success action-create-file" title='新建文档' vine-click='CREATE_FILE'> <i class="icon-doc"></i>
+				</button>
+			</div>
+		</div>
+
+		<div class="editor-navbar sync-ace-theme">
+			<div class="editor-navbar-bg sync-ace-theme"></div>
+			<div class="navbar-inner ace_string ace_constant ace_numeric ">
+				<button class="btn open-folder-btn" data-toggle="collapse"  data-target=".document-panel" title="文档管理"> <i class="icon-book"></i>
+				</button>
+				<div class="editor-navbar-buttons">
+					<span class='toolbar-group'>
+						<div class='wmd-buttons-group'>
+							<ul class="nav wmd-button-group1 wmd-button-group3  wmd-button-group2 wmd-button-group4 btn-group"></ul>
+							<ul class='nav image-button-group btn-group'></ul>
+						</div>
+						<div class="editor-hosted-buttons">
+							<button
+					class="btn btn-success action-create-file" title='Markdown 语法' vine-click='SHOW_HELP'>
+								<i class="icon-help-circled"></i>
+							</button>
+
+							<button class="btn btn-success dropdown-toggle" title='编辑器主题' id='theme-button' data-toggle="dropdown">
+								<i class="icon-magic"></i>
+							</button>
+							<ul id="theme-list" class="dropdown-menu ui" role="menu" aria-labelledby="drop6">
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/active4d">Active4d</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/all_hallows_eve">All Hallows Eve</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/amy">Amy</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/arstotzka">Arstotzka</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/azure">Azure</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/blackboard">Blackboard</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/bold">Bold</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/boxuk">Boxuk</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/brilliance_dull">Brilliance Dull</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/carbonight">Carbonight</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/carbonight_contrast">Carbonight Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/chocolate">Chocolate</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/chrome">Chrome</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/chrome_devtools">Chrome Devtools</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/clouds">Clouds</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/clouds_midnight">Clouds Midnight</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/cobalt">Cobalt</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/crimson_editor">Crimson Editor</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/crisp">Crisp</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/darkside">Darkside</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/darkside_contrast">Darkside Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/dawn">Dawn</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/dreamweaver">Dreamweaver</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/earthsong">Earthsong</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/espresso_libre">Espresso Libre</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/freshcut">Freshcut</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/frontier">Frontier</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/github">Github</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/gloom_contrast">Gloom Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/glowfish">Glowfish</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/goldfish_contrast">Goldfish Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/halflife_contrast">Halflife Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/heroku">Heroku</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/hyrule_contrast">Hyrule Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/iceberg_contrast">Iceberg Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/idle">Idle</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/idlefingers">Idlefingers</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/iplastic">Iplastic</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/juicy">Juicy</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/katzenmilch">Katzenmilch</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/keen">Keen</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/kiwi">Kiwi</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/krtheme">Krtheme</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/kuroir">Kuroir</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/laravel">Laravel</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/lavender">Lavender</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/lavender_contrast">Lavender Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/legacy">Legacy</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/magicwb_(amiga)">Magicwb (Amiga)</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/mellow_contrast">Mellow Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/mintchoc">Mintchoc</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/mono_industrial">Mono Industrial</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/monokai">Monokai</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/mud">Mud</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/otakon">Otakon</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/pastel">Pastel</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/peacock">Peacock</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/peacock_contrast">Peacock Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/peacocks_in_space">Peacocks In Space</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/peel">Peel</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/piggy">Piggy</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/rainbow">Rainbow</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/revelation_contrast">Revelation Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/shrek">Shrek</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/slate">Slate</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/slime">Slime</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/slime_contrast">Slime Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/slush_and_poppies">Slush And Poppies</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/solarflare_contrast">Solarflare Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/solarized_dark">Solarized Dark</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/solarized_light">Solarized Light</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/sourlick">Sourlick</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/spacecadet">Spacecadet</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/spearmint">Spearmint</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/sunburst">Sunburst</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/super">Super</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/terminal">Terminal</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/textmate">Textmate</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/textmate_(mac_classic)">Textmate (Mac Classic)</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tomorrow">Tomorrow</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tomorrow_night">Tomorrow Night</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tomorrow_night_eighties">Tomorrow Night Eighties</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tribal">Tribal</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tron">Tron</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/tron_contrast">Tron Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/turnip">Turnip</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/turnip_contrast">Turnip Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/twilight">Twilight</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/userscape">Userscape</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/vibrant_ink">Vibrant Ink</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/xcode">Xcode</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/yule">Yule</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/zacks">Zacks</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/zacks_contrast">Zacks Contrast</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="#" data-value="ace/theme/zenburnesque">Zenburnesque</a>
+								</li>
+
+							</ul>
+
+							<button class="btn btn-success full-editor-btn" title='切换全屏' vine-click='TOGGLE_RESIZE:full'>
+								<i class="icon-resize-full"></i>
+							</button>
+							<button class="btn btn-success shrink-editor-btn" title='切换全屏' vine-click='TOGGLE_RESIZE:small'>
+								<i class="icon-resize-small-1"></i>
+							</button>
+						</div>
+					</span>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div id="editor"></div>
+		<button class='btn btn-success' id='toggle-preview' vine-click='PREVIEW_DOCUMENT:0' >
+			<i class='icon-direction' title='返回编辑' ></i>
+		</button>
+		<div id="preview" class="shadowbox note-content"></div>
+	</div>
+	<!-- end #app_wrap -->
+</div>
+<!-- end #main -->
+
+<script src='/app/locales/zh.js' ></script>
+<div id="modal-generic" class="modal hide fade in">
+	<div class="modal-header">
+		<a href="#" class="close" data-dismiss="modal">&times;</a>
+		<h3></h3>
+	</div>
+	<div class="modal-body"></div>
+	<div class="modal-footer"></div>
+</div>
+
+<div class="modal modal-insert-link" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h3 class="modal-title">插入链接</h3>
+			</div>
+			<div class="modal-body">
+				<p>请填写链接URL以及描述（可选）：</p>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="icon-globe"></i>
+					</span>
+					<input
+						id="input-insert-link" type="text" class="col-lg-5 form-control"
+						placeholder='http://example.com/ "optional title"'></input>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-default" data-dismiss="modal">取消</a>
+			<a href="#" class="btn btn-primary action-insert-link"
+					data-dismiss="modal">确定</a>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="modal modal-insert-image" role="dialog">
+<div class="modal-dialog">
+	<div class="modal-content">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+			<h3 class="modal-title">插入图片</h3>
+		</div>
+		<div class="modal-body">
+			<p>请填写图片URL：</p>
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="icon-picture"></i>
+				</span>
+				<input
+						id="input-insert-image" type="text" class="col-lg-5 form-control"
+						placeholder='http://example.com/image.jpg'></input>
+		</div>
+		<div class='help-block'> <b>注意：</b>
+			<span>马克支持从剪切板直接复制图片，截屏粘贴试试。</span>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-default import-local-image"
+					>
+			<input type="file" accept="image/*" id='uploader' name="files[]" multiple="" onchange="" style="position:absolute; top:0; right:0; opacity:0; filter: alpha(opacity=0); font-size:23px; direction: ltr; cursor: pointer;">
+			<i class="icon-hdd"></i>
+			插入本地图片...
+		</a>
+		<a href="#" class="btn btn-default"
+					data-dismiss="modal">取消</a>
+		<a href="#"
+					class="btn btn-primary action-insert-image" data-dismiss="modal">确定</a>
+	</div>
+</div>
+</div>
+</div>
+
+<div class="modal modal-save-error">
+<div class="modal-dialog slim">
+<div class="modal-content">
+
+	<div class="modal-header" style='color:#B90B0B;'>
+		<h3 class="modal-title">同步文件失败</h3>
+	</div>
+	<div class="modal-body">
+		<p> <b>错误码：</b>
+			<span class='error-code'></span>
+		</p>
+		<blockquote>
+			<pre  class='error-message'></pre>
+		</blockquote>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-primary action-app-reset"
+					data-dismiss="modal">确定</a>
+	</div>
+</div>
+</div>
+</div>
+
+<div class="modal modal-help" role="dialog" tabindex='-1'>
+<div class="modal-dialog">
+<div class="markdown-syntax" platform-related>
+	<table class='markdown-table'>
+		<tr>
+			<td>强调</td>
+			<td>
+				<pre>*斜体*	**粗体**</pre>
+			</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>I/B</kbd>
+			</td>
+		</tr>
+		<tr>
+			<td>链接</td>
+			<td>
+				<pre>[描述](http://example.com)</pre>
+			</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>L</kbd>
+			</td>
+		</tr>
+		<tr>
+			<td>图片</td>
+			<td>
+				<pre>![描述](example.jpg)</pre>
+			</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>G</kbd>
+			</td>
+		</tr>
+		<tr>
+			<td>标题</td>
+			<td>
+				<pre>标题1		标题2
+========	--------
+
+## 标题2		###### 标题6
+</pre>
+			</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>H</kbd>
+			</td>
+		</tr>
+		<tr>
+			<td>列表</td>
+			<td>
+				<pre>1. 有序列表	- 无序列表
+2. 有序列表	- 无序列表
+</pre>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>引用</td>
+			<td>
+				<pre>&gt; 这是引用的文字
+&gt; 引用内可以嵌套标题、列表等
+</pre>
+			</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>Q</kbd>
+			</td>
+		</tr>
+		<tr>
+			<td>代码</td>
+			<td>
+				<pre><i>这是一句行内代码</i> `var a=1` , <i>以下是代码区块</i>：
+```ruby
+print 'Hello world'
+```
+</pre>
+			</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>K</kbd>
+			</td>
+		</tr>
+		<tr>
+			<td>LaTex 公式</td>
+			<td>
+				<pre><i>这是一句行内公式</i> $ y = x + 1 $ , <i>以下是整行公式</i>：
+$$ a^2 + b^2 = c^2 $$
+</pre>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>表格</td>
+			<td>
+				<pre>| Item      |    Value | Qty  |
+| :-------- | --------:| :--: |
+| Computer  | 1600 USD |  5   |
+</pre>
+
+			</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>Alt</kbd>
+				<kbd>T</kbd>
+			</td>
+		</tr>
+	</table>
+
+	<table class='key-table'>
+		<td>文档管理</td>
+		<td>
+			<kbd>Ctrl</kbd>
+			<kbd>O</kbd>
+		</td>
+	</tr>
+	<tr>
+		<td>帮助</td>
+		<td>
+			<kbd>Ctrl</kbd>
+			<kbd>/</kbd>
+		</td>
+	</tr>
+	<tr>
+		<tr>
+			<td>最大化编辑器</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>Enter</kbd>
+			</td>
+		</tr>
+		<tr>
+			<td>同步文档</td>
+			<td>
+				<kbd>Ctrl</kbd>
+				<kbd>S</kbd>
+			</td>
+		</tr>
+		<tr>
+			<tr>
+				<td>创建文档</td>
+				<td>
+					<kbd>Ctrl</kbd>
+					<kbd>Alt</kbd>
+					<kbd>N</kbd>
+				</td>
+			</tr>
+			<tr>
+				<td>系统菜单</td>
+				<td>
+					<kbd>Ctrl</kbd>
+					<kbd>M</kbd>
+				</td>
+			</tr>
+			<tr>
+				<td>放大 / 缩小字体</td>
+				<td>
+					<kbd>Ctrl</kbd>
+					<kbd>+/-</kbd>
+				</td>
+			</tr>
+		</table>
+
+	</div>
+</div>
+</div>
+<div class="modal modal-notify slim" role="dialog" tabindex='-1'>
+<div class="modal-dialog">
+	<div class="modal-content"></div>
+</div>
+</div>
+
+<script src="/js/editor.js?"></script>
+
+<script src="/js/lib.js?"></script>
+
+<script src="/app/hogan.js"></script>
+<script src="/app/storage.js"></script>
+<script src="/app/guardian.js"></script>
+
+<script src="/js/app.js?"></script>
+</body>
+</html>
